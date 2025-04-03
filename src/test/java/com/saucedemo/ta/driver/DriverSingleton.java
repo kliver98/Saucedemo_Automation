@@ -14,7 +14,7 @@ public class DriverSingleton {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            String browser = System.getProperty("browser");
+            String browser = "chrome";//System.getProperty("browser");
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();

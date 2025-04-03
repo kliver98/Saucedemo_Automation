@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.saucedemo.epam</groupId>
+    <groupId>com.saucedemo.ta</groupId>
     <artifactId>Saucedemo_Automation</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -13,13 +13,16 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <cucumber.version>7.21.1</cucumber.version>
+        <selenium.version>4.30.0</selenium.version>
+        <log4j.version>2.24.3</log4j.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.30.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
         <dependency>
@@ -69,25 +72,55 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.24.3</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.24.3</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.24.3</version>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>2.29.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ Cucumber JVM for BDD -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ Cucumber JUnit 5 integration -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-api</artifactId>
+            <version>1.12.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -102,6 +135,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>  <!-- Downgrade from 3.5.3 -->
                 <configuration>
+                    <includes>
+                        <include>**/CucumberTest.java</include> <!-- ✅ Run only Cucumber tests -->
+                    </includes>
+                    <systemPropertyVariables>
+                        <cucumber.plugin>pretty, html:target/cucumber-reports.html</cucumber.plugin>
+                        <cucumber.features>src/test/resources/features</cucumber.features>
+                        <cucumber.glue>steps</cucumber.glue>
+                    </systemPropertyVariables>
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
