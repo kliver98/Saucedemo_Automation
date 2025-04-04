@@ -28,3 +28,4 @@ target/*
 logs/*
 .allure/*
 target/allure-results/*
+allure-results/*
