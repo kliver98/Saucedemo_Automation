@@ -1,11 +1,14 @@
-package com.saucedemo.ta.page;
+package pages;
 
+import lombok.Getter;
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends BasePage{
+@Getter
+public class LoginPage extends PageObject {
 
     @FindBy(xpath = "//input[@id='user-name']")
     private WebElement inputUsername;
@@ -16,15 +19,6 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//input[@data-test='login-button']")
     private WebElement inputLogin;
 
-    protected LoginPage(WebDriver webDriver) {
-        super(webDriver);
-        PageFactory.initElements(this.driver, this);
-    }
-
-    public InventoryPage login(String username, String password) {
-        inputUsername.sendKeys(username);
-        inputPassword.sendKeys(password);
-        inputLogin.click();
-        return new InventoryPage(driver);
-    }
+    @FindBy(xpath = "//h3[@data-test='error']")
+    private WebElement errorElement;
 }

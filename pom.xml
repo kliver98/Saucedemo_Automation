@@ -16,6 +16,7 @@
         <cucumber.version>7.21.1</cucumber.version>
         <selenium.version>4.30.0</selenium.version>
         <log4j.version>2.24.3</log4j.version>
+        <serenity.version>4.2.17</serenity.version>
     </properties>
 
     <dependencies>
@@ -124,6 +125,49 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Serenity Core -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+
+        <!-- Serenity JUnit 5 -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit5</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+
+        <!-- Serenity Cucumber 7 -->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+
+        <!-- Cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>  <!-- Use the latest version -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>2.29.1</version> <!-- or latest -->
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -136,15 +180,15 @@
                 <version>3.1.2</version>  <!-- Downgrade from 3.5.3 -->
                 <configuration>
                     <includes>
-                        <include>**/CucumberTest.java</include> <!-- ✅ Run only Cucumber tests -->
+                        <include>**/*Test.java</include>
+                        <include>**/*TestSuite.java</include>
                     </includes>
                     <systemPropertyVariables>
                         <cucumber.plugin>pretty, html:target/cucumber-reports.html</cucumber.plugin>
                         <cucumber.features>src/test/resources/features</cucumber.features>
                         <cucumber.glue>steps</cucumber.glue>
-                    </systemPropertyVariables>
-                    <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <cucumber.plugin>pretty, html:target/cucumber-reports.html, io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm</cucumber.plugin>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -168,6 +212,21 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.version}</version>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>aggregate</goal>
                         </goals>
                     </execution>
                 </executions>
