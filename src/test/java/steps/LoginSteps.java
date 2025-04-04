@@ -1,21 +1,43 @@
 package steps;
 
-import io.cucumber.java.en.*;
+import actions.LoginActions;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LoginSteps {
 
-    @Given("the user is on the login page")
-    public void user_is_on_login_page() {
-        System.out.println("User is on the login page");
+    private LoginActions loginActions;
+
+    @Given("I am on the Saucedemo home page")
+    public void openPage() {
+        loginActions.openPage();
     }
 
-    @When("the user enters valid credentials")
-    public void user_enters_valid_credentials() {
-        System.out.println("User enters valid username and password");
+    @When("I fill credentials with username {string} and password {string}")
+    public void fillLoginCredentials(String username, String password) {
+        loginActions.fillLoginInformation(username, password);
     }
 
-    @Then("the user should see the homepage")
-    public void user_sees_homepage() {
-        System.out.println("User is redirected to homepage");
+    @When("I clear the input fields")
+    public void clearInputFields() {
+        loginActions.clearInputFields();
+    }
+
+    @When("I clear the password field")
+    public void clearPasswordField() {
+        loginActions.clearPasswordField();
+    }
+
+    @When("I click login button")
+    public void clickLoginButton() {
+        loginActions.clickLoginButton();
+    }
+
+    @Then("I should see error message {string}")
+    public void verifyErrorMessage(String message) {
+        loginActions.verifyErrorMessage(message);
     }
 }
