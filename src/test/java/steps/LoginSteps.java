@@ -5,10 +5,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import net.serenitybdd.annotations.Steps;
 
 @Slf4j
 public class LoginSteps {
 
+    @Steps
     private LoginActions loginActions;
 
     @Given("I am on the Saucedemo home page")

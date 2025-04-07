@@ -2,7 +2,6 @@ package actions;
 
 import net.serenitybdd.core.steps.UIInteractionSteps;
 import pages.InventoryPage;
-import pages.LoginPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
