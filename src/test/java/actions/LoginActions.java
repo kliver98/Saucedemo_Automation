@@ -1,8 +1,7 @@
 package actions;
 
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.steps.UIInteractionSteps;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import pages.LoginPage;
 import utils.ConfigReader;
@@ -12,11 +11,10 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
+@Slf4j
 public class LoginActions extends UIInteractionSteps {
 
     private LoginPage loginPage;
-
-    private static final Logger log = LogManager.getLogger(LoginActions.class);
 
     public void openPage() {
         log.info("Driver Session: {} - Thread ID: {}", getDriver().toString(), Thread.currentThread().getId());
