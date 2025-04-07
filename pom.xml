@@ -190,7 +190,6 @@
                         <include>**/*TestSuite.java</include>
                     </includes>
                     <systemPropertyVariables>
-                        <cucumber.plugin>pretty, html:target/cucumber-reports.html</cucumber.plugin>
                         <cucumber.features>src/test/resources/features</cucumber.features>
                         <cucumber.glue>steps</cucumber.glue>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
@@ -219,21 +218,6 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>net.serenity-bdd.maven.plugins</groupId>
-                <artifactId>serenity-maven-plugin</artifactId>
-                <version>${serenity.version}</version>
-                <executions>
-                    <execution>
-                        <id>serenity-reports</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>aggregate</goal>
                         </goals>
                     </execution>
                 </executions>

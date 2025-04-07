@@ -53,4 +53,4 @@ Please, add the task description as README.md into your solution!
 ### Run tests:
 The following command will clean target folder then generate again all the files compiled for then run the tests and finally create and open the report.
 You can use multiple browser, just change 'firefox' for 'edge' or 'chrome' for example (You need to have these browsers/drivers installed).
-> mvn clean verify -Dbrowser=firefox allure:serve
+> mvn clean verify -Denvironment=firefox allure:serve

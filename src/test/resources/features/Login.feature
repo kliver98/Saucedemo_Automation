@@ -17,9 +17,17 @@ Feature: Saucedemo login
     Then I should see error message "Epic sadface: Password is required"
 
   @UC-3
-  Scenario: Test Login form with credentials by passing Username & Password
+  Scenario Outline: Test Login form with credentials by passing Username & Password
     Given I am on the Saucedemo home page
-    When I fill credentials with username "standard_user" and password "secret_sauce"
+    When I fill credentials with username "<username>" and password "secret_sauce"
     And I click login button
     Then I should see inventory page with "Swag Labs" header title
     And I should see inventory page with 6 items
+
+    Examples:
+    | username                |
+    | standard_user           |
+    | problem_user            |
+    | performance_glitch_user |
+    | error_user              |
+    | visual_user             |

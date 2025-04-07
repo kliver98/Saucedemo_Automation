@@ -1,13 +1,11 @@
 package pages;
 
 import lombok.Getter;
-import net.serenitybdd.annotations.DefaultUrl;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 @Getter
-@DefaultUrl("https://www.saucedemo.com/")
 public class LoginPage extends PageObject {
 
     @FindBy(xpath = "//input[@data-test='username']")

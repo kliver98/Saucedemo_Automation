@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import pages.LoginPage;
+import utils.ConfigReader;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,10 +19,14 @@ public class LoginActions extends UIInteractionSteps {
     private static final Logger log = LogManager.getLogger(LoginActions.class);
 
     public void openPage() {
-        getDriver().get("https://www.saucedemo.com/");
+        log.info("Driver Session: {} - Thread ID: {}", getDriver().toString(), Thread.currentThread().getId());
+        String url = ConfigReader.getProperty("webdriver.base.url");
+        log.info("Navigate to: {}", url);
+        loginPage.open();
     }
 
     public void fillLoginInformation(String username, String password) {
+        log.info("Send credentials: {} {}", username, password);
         loginPage.getInputUsername().sendKeys(username);
         loginPage.getInputPassword().sendKeys(password);
     }
@@ -41,6 +46,7 @@ public class LoginActions extends UIInteractionSteps {
         await().atMost(5, TimeUnit.SECONDS).until(() ->
                 loginPage.getInputUsername().getText().isEmpty()
         );
+        log.warn("Username input field was erased");
     }
 
     public void clearPasswordField() {
@@ -49,6 +55,7 @@ public class LoginActions extends UIInteractionSteps {
         await().atMost(5, TimeUnit.SECONDS).until(() ->
                 loginPage.getInputPassword().getText().isEmpty()
         );
+        log.warn("Password input field was erased");
     }
 
     public void verifyErrorMessage(String message) {
